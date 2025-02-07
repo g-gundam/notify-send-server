@@ -23,6 +23,8 @@ echo '[{"-a" "Emacs *perl-live*" "--urgency" "critical"} "Crash" ' \
      \"$(date --utc --iso-8601=seconds)\" "]" | bb client
 #+end_src
 
+- `bb client` reads one [[https://github.com/edn-format/edn][EDN]] expression and sends it to the server.
+
 ** Forward unix domain socket to remote server
 #+begin_src bash
 env NSS_REMOTE=anon@remoteserver.og bb ssh
