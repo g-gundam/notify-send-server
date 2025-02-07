@@ -7,14 +7,16 @@
 
 * Usage
 
-** Run the server
+** =bb server=
 #+begin_src bash
 bb server
 #+end_src
 
-- =bb server= lists on `/tmp/notify-send.sock` for [[https://github.com/edn-format/edn][EDN]] expressions and passes them to the notify function in `notify.clj`.
+*Run the server.*
 
-** Send a request to the server
+- =bb server= listens on `/tmp/notify-send.sock` for [[https://github.com/edn-format/edn][EDN]] expressions and passes them to the notify function in `notify.clj`.
+
+** =bb client=
 #+begin_src bash
 # Send a message as an EDN expression
 echo '["hello"]' | bb client
@@ -25,11 +27,15 @@ echo '[{"-a" "Emacs *perl-live*" "--urgency" "critical"} "Crash" ' \
      \"$(date --utc --iso-8601=seconds)\" "]" | bb client
 #+end_src
 
+*Send a request to the server.*
+
 - =bb client= reads one [[https://github.com/edn-format/edn][EDN]] expression and sends it to the server.
 
-** Forward unix domain socket to remote server
+** =bb ssh=
 #+begin_src bash
 env NSS_REMOTE=anon@remoteserver.og bb ssh
 #+end_src
+
+*Forward the local unix domain socket to the remote server.*
 
 Now this remote server can send notifications to the local server that's running the notify-send-server.  They make requests the exact same way, because the remote server will have its own unix domain socket which happens to forward to the 
