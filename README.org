@@ -5,28 +5,27 @@
 - Have you ever wanted to send a notification from a remote server to your local machine?
 - If so, this [[https://babashka.org/][babashka]] script may be for you.
 
-* SERVER: Run as a server using `socat`
+* Usage
+
+** Run the server
 #+begin_src bash
-socat UNIX-LISTEN:/tmp/notify-send.sock,fork EXEC:./notify.clj
+bb server
 #+end_src
 
-- This sets up a Unix domain socket at `/tmp/notify-send.sock`.
-- It's listening for [[https://learnxinyminutes.com/edn/][EDN]] expressions that will be parsed by `notify.clj`.
-
-* CLIENT: Echo through `socat`
+** Send a request to the server
 #+begin_src bash
-echo '[{"-a" "Application"} "Custom Title" "Message you want to send"]' | socat - UNIX-CONNECT:/tmp/notify-send.sock
+# Send a message as an EDN expression
+echo '["hello"]' | bb client
+# Send a custom title and message
+echo '["Custom Title" "Body of Message"]' | bb client
+# Pass options to notify-send
+echo '[{"-a" "Emacs *perl-live*" "--urgency" "critical"} "Crash" ' \
+     \"$(date --utc --iso-8601=seconds)\" "]" | bb client
 #+end_src
 
-- EDN messages can be sent to the server by `echo`ing END expressions through socat.
-
-* Forward socket to remote server with `ssh`
+** Forward unix domain socket to remote server
 #+begin_src bash
-       # remote             : local
-ssh -R /tmp/notify-send.sock:/tmp/notify-send.sock anon@remote
+env NSS_REMOTE=anon@remoteserver.og bb ssh
 #+end_src
 
-- Caveat regarding remote sshd:  https://unix.stackexchange.com/a/429903
-- The remote server can now `echo` to its own `/tmp/notify-send.sock` and the notifications will appear on the local server.
-
-  [[file:notify-send.png][curious to see how github renders org images]]
+Now this remote server can send notifications to the local server that's running the notify-send-server.  They make requests the exact same way, because the remote server will have its own unix domain socket which happens to forward to the 
