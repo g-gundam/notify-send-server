@@ -12,7 +12,7 @@
 bb server
 #+end_src
 
-- `bb server` lists on `/tmp/notify-send.sock` for EDN expressions and passes them to the notify function in `notify.clj`.
+- =bb server= lists on `/tmp/notify-send.sock` for [[https://github.com/edn-format/edn][EDN]] expressions and passes them to the notify function in `notify.clj`.
 
 ** Send a request to the server
 #+begin_src bash
@@ -25,7 +25,7 @@ echo '[{"-a" "Emacs *perl-live*" "--urgency" "critical"} "Crash" ' \
      \"$(date --utc --iso-8601=seconds)\" "]" | bb client
 #+end_src
 
-- `bb client` reads one [[https://github.com/edn-format/edn][EDN]] expression and sends it to the server.
+- =bb client= reads one [[https://github.com/edn-format/edn][EDN]] expression and sends it to the server.
 
 ** Forward unix domain socket to remote server
 #+begin_src bash
