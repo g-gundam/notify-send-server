@@ -2,17 +2,23 @@
 #+startup: fold indent
 #+filetags: :github:project:
 
-Have you ever wanted to send a notification from a remote server to your local machine?
+- Have you ever wanted to send a notification from a remote server to your local machine?
+- If so, this [[https://babashka.org/][babashka]] script may be for you.
 
 * SERVER: Run as a server using `socat`
 #+begin_src bash
 socat UNIX-LISTEN:/tmp/notify-send.sock,fork EXEC:./notify.clj
 #+end_src
 
+- This sets up a Unix domain socket at `/tmp/notify-send.sock`.
+- It's listening for [[https://learnxinyminutes.com/edn/][EDN]] expressions that will be parsed by `notify.clj`.
+
 * CLIENT: Echo through `socat`
 #+begin_src bash
 echo '[{"-a" "Application"} "Custom Title" "Message you want to send"]' | socat - UNIX-CONNECT:/tmp/notify-send.sock
 #+end_src
+
+- EDN messages can be sent to the server by `echo`ing END expressions through socat.
 
 * Forward socket to remote server with `ssh`
 #+begin_src bash
@@ -20,6 +26,5 @@ echo '[{"-a" "Application"} "Custom Title" "Message you want to send"]' | socat 
 ssh -R /tmp/notify-send.sock:/tmp/notify-send.sock anon@remote
 #+end_src
 
-Caveat regarding remote sshd:  https://unix.stackexchange.com/a/429903
-
-The remote server can use the same `echo` that was used locally to make notifcations appear on the local server that's running the notify-send server.
+- Caveat regarding remote sshd:  https://unix.stackexchange.com/a/429903
+- The remote server can now `echo` to its own `/tmp/notify-send.sock` and the notifications will appear on the local server.
