@@ -12,6 +12,8 @@
 bb server
 #+end_src
 
+- `bb server` lists on `/tmp/notify-send.sock` for EDN expressions and passes them to the notify function in `notify.clj`.
+
 ** Send a request to the server
 #+begin_src bash
 # Send a message as an EDN expression
