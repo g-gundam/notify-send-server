@@ -29,4 +29,4 @@ ssh -R /tmp/notify-send.sock:/tmp/notify-send.sock anon@remote
 - Caveat regarding remote sshd:  https://unix.stackexchange.com/a/429903
 - The remote server can now `echo` to its own `/tmp/notify-send.sock` and the notifications will appear on the local server.
 
-  [[https://github.com/g-gundam/notify-send-server/blob/main/notify-send.png?raw=true][curious to see how github renders org images]]
+  [[file:notify-send.png][curious to see how github renders org images]]
