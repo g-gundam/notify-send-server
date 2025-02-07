@@ -2,21 +2,19 @@
 #+startup: fold indent
 #+filetags: :github:project:
 
-* notify-send-server
-
 Have you ever wanted to send a notification from a remote server to your local machine?
 
-** SERVER: Run as a server using `socat`
+* SERVER: Run as a server using `socat`
 #+begin_src bash
 socat UNIX-LISTEN:/tmp/notify-send.sock,fork EXEC:./notify.clj
 #+end_src
 
-** CLIENT: Echo through `socat`
+* CLIENT: Echo through `socat`
 #+begin_src bash
 echo '[{"-a" "Application"} "Custom Title" "Message you want to send"]' | socat - UNIX-CONNECT:/tmp/notify-send.sock
 #+end_src
 
-** Forward socket to remote server with `ssh`
+* Forward socket to remote server with `ssh`
 #+begin_src bash
        # remote             : local
 ssh -R /tmp/notify-send.sock:/tmp/notify-send.sock anon@remote
