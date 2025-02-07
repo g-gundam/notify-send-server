@@ -2,5 +2,9 @@
  {server {:doc  "=> Run a server on `/tmp/notify-send.sock`."
           :task (shell "socat UNIX-LISTEN:/tmp/notify-send.sock,fork EXEC:./notify.clj")}
   client {:doc "=> Pipe an EDN expression through socat to send a request to the server."
-          :task (shell "socat - UNIX-CONNECT:/tmp/notify-send.sock")}}
+          :task (shell "socat - UNIX-CONNECT:/tmp/notify-send.sock")}
+  ssh {:doc "=> Forward unix domain socket to a remote server."
+       :task (let [remote (System/getenv "NSS_REMOTE")]
+               (shell "ssh" "-R" "/tmp/notify-send.sock:/tmp/notify-send.sock" remote))}
+  }
  }
