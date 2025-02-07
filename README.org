@@ -1,7 +1,10 @@
+#+title: notify-send-server
 #+startup: fold indent
 #+filetags: :github:project:
 
 * notify-send-server
+
+Have you ever wanted to send a notification from a remote server to your local machine?
 
 ** SERVER: Run as a server using `socat`
 #+begin_src bash
