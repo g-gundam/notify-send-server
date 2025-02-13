@@ -6,4 +6,7 @@
   ssh {:doc "Forward unix domain socket to a remote server."
        :task (let [remote (System/getenv "REMOTE")]
                (shell "ssh" "-R" "/tmp/notify-send.sock:/tmp/notify-send.sock" remote))}
+  autossh {:doc "Forward unix domain socket to a remote server using autossh instead of ssh."
+           :task (let [remote (System/getenv "REMOTE")]
+                   (shell "autossh" "-M" "0" remote "-N" "-R" "/tmp/notify-send.sock:/tmp/notify-send.sock"))}
   }}
