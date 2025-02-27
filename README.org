@@ -42,3 +42,10 @@ env REMOTE=anon@remoteserver.org bb ssh
 - In the future, I may make the path to the Unix domain socket configurable.
 
 Now this remote server can send notifications to the local server that's running the notify-send-server.  They make requests the exact same way, because the remote server will have its own unix domain socket which happens to forward to the local unix domain socket.
+
+** bb autossh
+#+begin_src bash
+env REMOTE=anon@remoteserver.org bb autossh
+#+end_src
+
+This works the same as `bb ssh`, but it uses [[https://github.com/Autossh/autossh][autossh]] instead to provide connection monitoring and automatic restarts.
