@@ -30,6 +30,9 @@ echo '[{"-a" "Emacs *perl-live*" "--urgency" "critical"} "Crash" ' \
 *Send a request to the server.*
 
 - =bb client= reads one [[https://github.com/edn-format/edn][EDN]] expression and sends it to the server.
+  + =[ "body" ]=
+  + =[ "title" "body" ]=
+  + =[ {"--option" "value" } "title" "body" ]= - The options should be options supported by [[https://manpages.ubuntu.com/manpages/noble/man1/notify-send.1.html][notify-send]].
 
 ** =bb ssh=
 #+begin_src bash
