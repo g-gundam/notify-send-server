@@ -25,7 +25,7 @@ rad clone rad:z2rTVFAwQ42qiVQNPKzapEF8aa4AW
 
 * Usage
 
-** =bb server=
+** bb server
 #+begin_src bash
 bb server
 #+end_src
@@ -34,7 +34,7 @@ bb server
 
 - =bb server= listens on `/tmp/notify-send.sock` for [[https://github.com/edn-format/edn][EDN]] expressions and passes them to the notify function in `notify.clj`.
 
-** =bb client=
+** bb client
 #+begin_src bash
 # Send a message as an EDN expression
 echo '["hello"]' | bb client
@@ -54,7 +54,7 @@ echo '[{"-a" "Emacs *perl-live*" "--urgency" "critical"} "Crash" ' \
 
 These correspond to the 3 arities of the =notify= function from =notify.clj=.
 
-** =bb ssh=
+** bb ssh
 #+begin_src bash
 env REMOTE=anon@remoteserver.org bb ssh
 #+end_src
@@ -68,7 +68,7 @@ Now this remote server can send notifications to the local server that's running
 
 *NOTE*:  On the remote server, =/etc/ssh/sshd_config= may need to have =StreamLocalUnbindLink yes= added to it.  See this [[https://unix.stackexchange.com/a/429903][Unix StackExchange answer]] for more details.
 
-** =bb autossh=
+** bb autossh
 #+begin_src bash
 env REMOTE=anon@remoteserver.org bb autossh
 #+end_src
