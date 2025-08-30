@@ -1,12 +1,12 @@
 {:tasks
- {server {:doc  "Run a server on `/tmp/notify-send.sock`."
-          :task (shell "socat UNIX-LISTEN:/tmp/notify-send.sock,fork EXEC:./notify.clj")}
-  client {:doc "Pipe an EDN expression through socat to send a request to the server."
-          :task (shell "socat - UNIX-CONNECT:/tmp/notify-send.sock")}
-  ssh {:doc "Forward unix domain socket to a remote server."
-       :task (let [remote (System/getenv "REMOTE")]
-               (shell "ssh" "-R" "/tmp/notify-send.sock:/tmp/notify-send.sock" remote))}
-  autossh {:doc "Forward unix domain socket to a remote server using autossh instead of ssh."
-           :task (let [remote (System/getenv "REMOTE")]
+ {server  {:doc  "run a server on `/tmp/notify-send.sock`."
+           :task (shell "socat unix-listen:/tmp/notify-send.sock,fork exec:./notify.clj")}
+  client  {:doc "pipe an edn expression through socat to send a request to the server."
+           :task (shell "socat - unix-connect:/tmp/notify-send.sock")}
+  ssh     {:doc "forward unix domain socket to a remote server."
+           :task (let [remote (system/getenv "remote")]
+                   (shell "ssh" "-r" "/tmp/notify-send.sock:/tmp/notify-send.sock" remote))}
+  autossh {:doc "forward unix domain socket to a remote server using autossh instead of ssh."
+           :task (let [remote (system/getenv "remote")]
                    (shell "autossh" "-M" "0" remote "-N" "-R" "/tmp/notify-send.sock:/tmp/notify-send.sock"))}
   }}
