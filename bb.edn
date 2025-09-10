@@ -4,9 +4,9 @@
   client  {:doc "pipe an edn expression through socat to send a request to the server."
            :task (shell "socat - unix-connect:/tmp/notify-send.sock")}
   ssh     {:doc "forward unix domain socket to a remote server."
-           :task (let [remote (system/getenv "remote")]
+           :task (let [remote (System/getenv "REMOTE")]
                    (shell "ssh" "-r" "/tmp/notify-send.sock:/tmp/notify-send.sock" remote))}
   autossh {:doc "forward unix domain socket to a remote server using autossh instead of ssh."
-           :task (let [remote (system/getenv "remote")]
+           :task (let [remote (System/getenv "REMOTE")]
                    (shell "autossh" "-M" "0" remote "-N" "-R" "/tmp/notify-send.sock:/tmp/notify-send.sock"))}
   }}
