@@ -1,6 +1,6 @@
 #+title: notify-send-server
 #+subtitle: a socket server that wraps notify-send
-#+startup: fold indent
+#+startup: fold show2levels
 #+filetags: :github:project:
 
 * About
